@@ -46,8 +46,6 @@ app.get('/seed', function (req, res) {
     };
 
     db.authors.insert(author, function (err, newAuthor) {
-        var author_id = newAuthor._id;
-
         var post = {
             title: 'Hello world!',
             content: 'In the follow-on blogs in this series, you’ll see how the data from a home sale.',
