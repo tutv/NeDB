@@ -3,6 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var datek = require('datek');
 var db = require('./nedb');
+var genK = require('./generate');
 
 app.get('/destroy', function (req, res) {
     db.posts.remove({}, {multi: true}, function (err, numRemoved) {
@@ -13,6 +14,12 @@ app.get('/destroy', function (req, res) {
 
     res.send('Done!');
 });
+
+var response = {
+    return: true,
+    time: 0,
+    result: null
+};
 
 /**
  * Seed categories
@@ -95,15 +102,20 @@ app.get('/test', function (req, res) {
     })
 });
 
+/**
+ * Get posts
+ */
 app.get('/posts', function (req, res) {
-    db.posts.find({}, function (err, docs) {
-        db.authors.find({}, function (errr, authors) {
-            docs.forEach(function (post, index) {
+    var startTime = datek.getNowTimestamp();
 
-            });
-        });
+    db.posts.find({}, function (err, posts) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = posts;
 
-        res.json(docs);
+        res.json(response);
     });
 });
 
@@ -113,15 +125,12 @@ app.get('/authors', (req, res) => {
     })
 });
 
+/**
+ * Get author by username
+ */
 app.get('/author/:username', (req, res) => {
     var username = req.params.username;
     var startTime = datek.getNowTimestamp();
-
-    var response = {
-        return: true,
-        time: 0,
-        result: null
-    };
 
     db.authors.find({username: username}, (err, authors) => {
         var doneTime = datek.getNowTimestamp();
@@ -134,6 +143,31 @@ app.get('/author/:username', (req, res) => {
     });
 });
 
+/**
+ * Get author by id
+ */
+app.get('/author_/:id', (req, res) => {
+    var id = req.params.id;
+    var startTime = datek.getNowTimestamp();
+
+    db.authors.find({_id: id}, (err, authors) => {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = authors;
+
+        res.json(response);
+    });
+});
+
+app.get('/lorem', (req, res) => {
+    res.send(genK.generateContent());
+});
+
+/**
+ * Server Listen
+ */
 http.listen(8001, () => {
     console.log('listening on localhost:8001');
 });

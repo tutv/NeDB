@@ -19,6 +19,7 @@
   "dependencies": {
     "datek": "^1.0.1",
     "express": "latest",
+    "lorem-ipsum": "^1.0.3",
     "nedb": "latest"
   }
 }
