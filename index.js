@@ -165,6 +165,14 @@ app.get('/lorem', (req, res) => {
     res.send(genK.generateContent());
 });
 
+app.get('/authorPosts', (req, res) => {
+    db.posts.find({
+        "author._id": "bkTdNw48xbLlUmxu"
+    }, (err, docs) => {
+        res.json(docs);
+    })
+});
+
 /**
  * Server Listen
  */
