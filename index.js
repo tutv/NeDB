@@ -68,29 +68,40 @@ app.get('/seedCategories', function (req, res) {
 
 });
 
-app.get('/seed', function (req, res) {
+app.get('/seedPost', function (req, res) {
     var author = {
-        name: 'Tu Tran',
-        username: 'max',
-        created_at: datek.getNowTimestamp(),
-        updated_at: datek.getNowTimestamp()
+        "name": "Tu Tran",
+        "username": "max",
+        "created_at": 1460519680473,
+        "updated_at": 1460519680473,
+        "_id": "bkTdNw48xbLlUmxu"
     };
 
-    db.authors.insert(author, function (err, newAuthor) {
-        var post = {
-            title: 'Hello world!',
-            content: 'In the follow-on blogs in this series, you’ll see how the data from a home sale.',
-            author: newAuthor,
-            categories: [],
-            created_at: datek.getNowTimestamp(),
-            updated_at: datek.getNowTimestamp()
-        };
-        db.posts.insert(post, function (err, newPost) {
-            console.log(newPost);
-        });
+    db.categories.find({}, (err, categories) => {
+        var count_category = categories.length;
+
+        var count = 0;
+        for (var i = 0; i < 1000; i++) {
+            var random_category_index = genK.random(0, count_category);
+            var random_category = categories[random_category_index];
+
+            var post = {
+                title: genK.generateTitle(),
+                content: genK.generateContent(),
+                author: author,
+                categories: random_category,
+                created_at: datek.getNowTimestamp(),
+                updated_at: datek.getNowTimestamp()
+            };
+
+            db.posts.insert(post, function (err, newPost) {
+                count++;
+                console.log(count);
+            });
+        }
     });
 
-    res.send('Hello!');
+    res.send('Seeding!');
 });
 
 app.get('/test', function (req, res) {
@@ -161,13 +172,10 @@ app.get('/author_/:id', (req, res) => {
     });
 });
 
-app.get('/lorem', (req, res) => {
-    res.send(genK.generateContent());
-});
-
-app.get('/authorPosts', (req, res) => {
+app.get('/authorPosts/:id', (req, res) => {
+    var id = req.params.id;
     db.posts.find({
-        "author._id": "bkTdNw48xbLlUmxu"
+        'author._id': id
     }, (err, docs) => {
         res.json(docs);
     })
