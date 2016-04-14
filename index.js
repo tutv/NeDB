@@ -81,7 +81,7 @@ app.get('/seedPost', function (req, res) {
         var count_category = categories.length;
 
         var count = 0;
-        for (var i = 0; i < 1000000; i++) {
+        for (var i = 0; i < 100000; i++) {
             var random_category_index = genK.random(0, count_category);
             var random_category = categories[random_category_index];
 
