@@ -41,7 +41,7 @@ app.get('/seedCategories', function (req, res) {
             name: 'Java'
         },
         {
-            name: 'dot Net'
+            name: 'dotNet'
         }
         ,
         {
