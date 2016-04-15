@@ -6,6 +6,9 @@ var db = require('./nedb');
 var genK = require('./generate');
 var result = require('./result');
 var Response = result.Response;
+var apixx = function (xx) {
+    console.log(xx);
+};
 
 app.get('/destroy', function (req, res) {
     db.posts.remove({}, {multi: true}, function (err, numRemoved) {
@@ -158,6 +161,8 @@ app.get('/posts/:page', function (req, res) {
  * Get post by id_
  */
 app.get('/post/:id', function (req, res) {
+    console.log(req.route.path);
+    
     var id = req.params.id;
     var startTime = datek.getNowTimestamp();
 
@@ -184,6 +189,8 @@ app.get('/post/:id', function (req, res) {
 });
 
 app.get('/authors', function (req, res) {
+    console.log(req.route.path);
+    
     db.authors.find({}, function (err, authors) {
         res.json(authors);
     })
@@ -193,6 +200,8 @@ app.get('/authors', function (req, res) {
  * Get author by username
  */
 app.get('/author/:username', function (req, res) {
+    console.log(req.route.path);
+    
     var username = req.params.username;
     var startTime = datek.getNowTimestamp();
 
@@ -211,6 +220,8 @@ app.get('/author/:username', function (req, res) {
  * Get author by id
  */
 app.get('/author_/:id', function (req, res) {
+    console.log(req.route.path);
+    
     var id = req.params.id;
     var startTime = datek.getNowTimestamp();
 
@@ -226,6 +237,8 @@ app.get('/author_/:id', function (req, res) {
 });
 
 app.get('/authorPosts/:id', function (req, res) {
+    console.log(req.route.path);
+    
     var id = req.params.id;
     db.posts.find({
         'author._id': id
@@ -238,6 +251,8 @@ app.get('/authorPosts/:id', function (req, res) {
  * Count posts
  */
 app.get('/countPosts', function (req, res) {
+    console.log(req.route.path);
+    
     var startTime = datek.getNowTimestamp();
 
     db.posts.count({}, function (err, count) {
