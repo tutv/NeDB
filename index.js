@@ -120,6 +120,7 @@ app.get('/test', function (req, res) {
  */
 app.get('/posts', function (req, res) {
     var startTime = datek.getNowTimestamp();
+    console.log(req.route.path);
 
     db.posts.find({}).limit(10).exec(function (err, posts) {
         var doneTime = datek.getNowTimestamp();
@@ -130,6 +131,56 @@ app.get('/posts', function (req, res) {
 
         res.json(response);
     });
+});
+
+/**
+ * Paging posts
+ */
+app.get('/posts/:page', function (req, res) {
+    console.log(req.route.path);
+
+    var page = parseInt(req.params.page);
+    var startTime = datek.getNowTimestamp();
+    var offset = (page - 1) * 10;
+
+    db.posts.find({}).skip(offset).limit(10).exec(function (err, posts) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = posts;
+
+        res.json(response);
+    });
+});
+
+/**
+ * Get post by id_
+ */
+app.get('/post/:id', function (req, res) {
+    var id = req.params.id;
+    var startTime = datek.getNowTimestamp();
+
+    db.posts.find({_id: id}, function (err, posts) {
+        var stopTime = datek.getNowTimestamp();
+        var sumTime = stopTime - startTime;
+        var response;
+
+        if (err) {
+            response = new Response(false, sumTime, null, 'Error!');
+            res.json(response);
+
+            throw err;
+        }
+
+        if (posts.length == 0) {
+            response = new Response(false, sumTime, null, 'Post not found!');
+        } else {
+            response = new Response(true, sumTime, posts[0], 'Success!');
+        }
+
+        res.json(response);
+    })
 });
 
 app.get('/authors', function (req, res) {
