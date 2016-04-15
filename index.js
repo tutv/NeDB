@@ -183,6 +183,9 @@ app.get('/authorPosts/:id', function (req, res) {
     })
 });
 
+/**
+ * Count posts
+ */
 app.get('countPosts', function (req, res) {
     var startTime = datek.getNowTimestamp();
 

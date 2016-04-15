@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/tutv95/NeDB#readme",
   "dependencies": {
-    "datek": "^1.0.1",
+    "datek": "latest",
     "express": "latest",
-    "lorem-ipsum": "^1.0.3",
+    "lorem-ipsum": "latest",
     "nedb": "latest"
   }
 }
