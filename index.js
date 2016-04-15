@@ -4,6 +4,8 @@ var http = require('http').Server(app);
 var datek = require('datek');
 var db = require('./nedb');
 var genK = require('./generate');
+var result = require('./result');
+var Response = result.Response;
 
 app.get('/destroy', function (req, res) {
     db.posts.remove({}, {multi: true}, function (err, numRemoved) {
@@ -179,6 +181,18 @@ app.get('/authorPosts/:id', function (req, res) {
     }, function (err, docs) {
         res.json(docs);
     })
+});
+
+app.get('countPosts', function (req, res) {
+    var startTime = datek.getNowTimestamp();
+
+    db.posts.count({}, function (err, count) {
+        var stopTime = datek.getNowTimestamp();
+        var sumTime = stopTime - startTime;
+        var response = new Response(true, sumTime, count, 'Success!');
+
+        res.json(response);
+    });
 });
 
 /**
