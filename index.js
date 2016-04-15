@@ -186,7 +186,7 @@ app.get('/authorPosts/:id', function (req, res) {
 /**
  * Count posts
  */
-app.get('countPosts', function (req, res) {
+app.get('/countPosts', function (req, res) {
     var startTime = datek.getNowTimestamp();
 
     db.posts.count({}, function (err, count) {
