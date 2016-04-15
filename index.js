@@ -162,7 +162,7 @@ app.get('/posts/:page', function (req, res) {
  */
 app.get('/post/:id', function (req, res) {
     console.log(req.route.path);
-    
+
     var id = req.params.id;
     var startTime = datek.getNowTimestamp();
 
@@ -190,7 +190,7 @@ app.get('/post/:id', function (req, res) {
 
 app.get('/authors', function (req, res) {
     console.log(req.route.path);
-    
+
     db.authors.find({}, function (err, authors) {
         res.json(authors);
     })
@@ -201,16 +201,18 @@ app.get('/authors', function (req, res) {
  */
 app.get('/author/:username', function (req, res) {
     console.log(req.route.path);
-    
+
     var username = req.params.username;
     var startTime = datek.getNowTimestamp();
 
-    db.authors.find({username: username}, function (err, authors) {
+    db.posts.find({
+        'author.username': username
+    }).limit(10).exec(function (err, posts) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
         response.time = sumTime;
-        response.result = authors;
+        response.result = posts;
 
         res.json(response);
     });
@@ -221,7 +223,7 @@ app.get('/author/:username', function (req, res) {
  */
 app.get('/author_/:id', function (req, res) {
     console.log(req.route.path);
-    
+
     var id = req.params.id;
     var startTime = datek.getNowTimestamp();
 
@@ -238,7 +240,7 @@ app.get('/author_/:id', function (req, res) {
 
 app.get('/authorPosts/:id', function (req, res) {
     console.log(req.route.path);
-    
+
     var id = req.params.id;
     db.posts.find({
         'author._id': id
@@ -252,7 +254,7 @@ app.get('/authorPosts/:id', function (req, res) {
  */
 app.get('/countPosts', function (req, res) {
     console.log(req.route.path);
-    
+
     var startTime = datek.getNowTimestamp();
 
     db.posts.count({}, function (err, count) {
