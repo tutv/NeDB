@@ -77,7 +77,7 @@ app.get('/seedPost', function (req, res) {
         "_id": "bkTdNw48xbLlUmxu"
     };
 
-    db.categories.find({}, function(err, categories) {
+    db.categories.find({}, function (err, categories) {
         var count_category = categories.length;
 
         var count = 0;
@@ -105,7 +105,7 @@ app.get('/seedPost', function (req, res) {
 });
 
 app.get('/test', function (req, res) {
-    db.posts.insert({title: 'sdfjlksdf'}, function(err, newDoc) {
+    db.posts.insert({title: 'sdfjlksdf'}, function (err, newDoc) {
         console.log(err);
         console.log(newDoc);
 
@@ -119,7 +119,7 @@ app.get('/test', function (req, res) {
 app.get('/posts', function (req, res) {
     var startTime = datek.getNowTimestamp();
 
-    db.posts.find({}, function (err, posts) {
+    db.posts.find({}).limit(10).exec(function (err, posts) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
@@ -130,8 +130,8 @@ app.get('/posts', function (req, res) {
     });
 });
 
-app.get('/authors', function(req, res) {
-    db.authors.find({}, function(err, authors) {
+app.get('/authors', function (req, res) {
+    db.authors.find({}, function (err, authors) {
         res.json(authors);
     })
 });
@@ -139,11 +139,11 @@ app.get('/authors', function(req, res) {
 /**
  * Get author by username
  */
-app.get('/author/:username', function(req, res) {
+app.get('/author/:username', function (req, res) {
     var username = req.params.username;
     var startTime = datek.getNowTimestamp();
 
-    db.authors.find({username: username}, function(err, authors) {
+    db.authors.find({username: username}, function (err, authors) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
@@ -157,11 +157,11 @@ app.get('/author/:username', function(req, res) {
 /**
  * Get author by id
  */
-app.get('/author_/:id', function(req, res) {
+app.get('/author_/:id', function (req, res) {
     var id = req.params.id;
     var startTime = datek.getNowTimestamp();
 
-    db.authors.find({_id: id}, function(err, authors) {
+    db.authors.find({_id: id}, function (err, authors) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
@@ -172,11 +172,11 @@ app.get('/author_/:id', function(req, res) {
     });
 });
 
-app.get('/authorPosts/:id', function(req, res) {
+app.get('/authorPosts/:id', function (req, res) {
     var id = req.params.id;
     db.posts.find({
         'author._id': id
-    }, function(err, docs) {
+    }, function (err, docs) {
         res.json(docs);
     })
 });
@@ -184,6 +184,6 @@ app.get('/authorPosts/:id', function(req, res) {
 /**
  * Server Listen
  */
-http.listen(2356, function() {
+http.listen(2356, function () {
     console.log('listening on localhost:8001');
 });
