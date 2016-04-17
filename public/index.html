@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+    <style>
+        .todo {
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+<div id="page" class="container">
+
+    <h1 class="text-center">Todos list</h1>
+    <form action="/insert" method="POST">
+        <div class="form-group">
+            <input type="text" class="form-control" name="title" placeholder="Title">
+        </div>
+
+        <div class="form-group">
+            <textarea name="content" rows="3" class="form-control" placeholder="Take a note"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-success td-add">Done</button>
+        </div>
+    </form>
+
+    <div class="td-lists row"></div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.timepicker.min.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+
+        var url_get_all = location.href + 'all';
+        var url_delete = location.href + 'delete/';
+        var url_insert = location.href + 'insert';
+        var $todo_lists = $('.td-lists');
+        $.ajax({
+            url: url_get_all,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var t = data[i];
+                    var html = '<div id="' + t._id + '" class="col-md-6 todo">'
+                            + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
+                            + '<p>' + t.content + '</p>'
+                            + '</div>';
+
+                    $todo_lists.prepend(html);
+                }
+            }
+        });
+
+        $('body').on('click', '.td-delete', function (e) {
+            var id = $(this).data('id');
+            var url_ajax = url_delete + id;
+
+            console.log('aaaa');
+            $.ajax({
+                url: url_ajax,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.return) {
+                        $('#' + id).remove();
+                    }
+                }
+            });
+        });
+
+        $('.td-add').on('click', function (e) {
+            e.preventDefault();
+            var title = $('[name="title"]').val();
+            var content = $('[name="content"]').val();
+
+            $.ajax({
+                url: url_insert,
+                method: 'POST',
+                dataType: 'json',
+                data: {title: title, content: content},
+                success: function (data) {
+                    if (data.return) {
+                        var t = data.response;
+                        var html = '<div id="' + t._id + '" class="col-md-6 todo">'
+                                + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
+                                + '<p>' + t.content + '</p>'
+                                + '</div>';
+
+                        $todo_lists.prepend(html);
+                    }
+                }
+            });
+
+        });
+    });
+</script>
+</body>
+</html>
