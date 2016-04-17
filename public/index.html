@@ -70,6 +70,10 @@
             });
         });
 
+        socket.on('delete_todo', function (id) {
+            $('#' + id).remove();
+        });
+
         var url_get_all = location.href + 'all';
         var url_delete = location.href + 'delete/';
         var url_insert = location.href + 'insert';
@@ -103,6 +107,8 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
+                    socket.emit('delete_todo', id);
+
                     if (data.return) {
                         $('#' + id).remove();
                     }

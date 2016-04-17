@@ -89,6 +89,10 @@ io.on('connection', function (socket) {
     socket.on('add_todo', function (id) {
         io.emit('add_todo', id);
     });
+
+    socket.on('delete_todo', function (id) {
+        io.emit('delete_todo', id);
+    });
 });
 
 /**
