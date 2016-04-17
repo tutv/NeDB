@@ -73,7 +73,7 @@ app.get('/seedCategories', function (req, res) {
 
 });
 
-app.get('/seedPost', function (req, res) {
+app.get('/seedPosts/:count', function (req, res) {
     var author = {
         "name": "Tu Tran",
         "username": "max",
@@ -82,11 +82,13 @@ app.get('/seedPost', function (req, res) {
         "_id": "bkTdNw48xbLlUmxu"
     };
 
+    var countSeed = parseInt(req.params.count);
+
     db.categories.find({}, function (err, categories) {
         var count_category = categories.length;
 
         var count = 0;
-        for (var i = 0; i < 100000; i++) {
+        for (var i = 0; i < countSeed; i++) {
             var random_category_index = genK.random(0, count_category);
             var random_category = categories[random_category_index];
 
