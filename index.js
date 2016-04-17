@@ -108,15 +108,6 @@ app.get('/seedPosts/:count', function (req, res) {
     res.send('Seeding!');
 });
 
-app.get('/test', function (req, res) {
-    db.posts.insert({title: 'sdfjlksdf'}, function (err, newDoc) {
-        console.log(err);
-        console.log(newDoc);
-
-        res.json(newDoc);
-    })
-});
-
 /**
  * Get posts
  */
