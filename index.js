@@ -6,9 +6,6 @@ var db = require('./nedb');
 var genK = require('./generate');
 var result = require('./result');
 var Response = result.Response;
-var apixx = function (xx) {
-    console.log(xx);
-};
 
 app.get('/destroy', function (req, res) {
     db.posts.remove({}, {multi: true}, function (err, numRemoved) {
