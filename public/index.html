@@ -48,9 +48,11 @@
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var t = data[i];
+                    var str = t.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
                     var html = '<div id="' + t._id + '" class="col-md-6 todo">'
                             + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
-                            + '<p>' + t.content + '</p>'
+                            + '<p>' + str + '</p>'
                             + '</div>';
 
                     $todo_lists.prepend(html);
@@ -91,9 +93,10 @@
                         $('[name="content"]').val('');
 
                         var t = data.response;
+                        var str = t.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
                         var html = '<div id="' + t._id + '" class="col-md-6 todo">'
                                 + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
-                                + '<p>' + t.content + '</p>'
+                                + '<p>' + str + '</p>'
                                 + '</div>';
 
                         $todo_lists.prepend(html);
