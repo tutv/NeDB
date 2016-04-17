@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tutv95/NeDB#readme",
   "dependencies": {
-    "body-parser": "^1.15.0",
+    "body-parser": "latest",
     "datek": "latest",
     "express": "latest",
     "lorem-ipsum": "latest",
