@@ -87,6 +87,9 @@
                 data: {title: title, content: content},
                 success: function (data) {
                     if (data.return) {
+                        $('[name="title"]').val('');
+                        $('[name="content"]').val('');
+
                         var t = data.response;
                         var html = '<div id="' + t._id + '" class="col-md-6 todo">'
                                 + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
@@ -94,6 +97,8 @@
                                 + '</div>';
 
                         $todo_lists.prepend(html);
+                    } else {
+                        alert('Something went wrong ~_~!');
                     }
                 }
             });
