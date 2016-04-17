@@ -269,5 +269,5 @@ app.get('/countPosts', function (req, res) {
  * Server Listen
  */
 http.listen(2356, function () {
-    console.log('listening on localhost:8001');
+    console.log('listening on localhost:2356');
 });
