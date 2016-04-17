@@ -21,6 +21,7 @@
     "datek": "latest",
     "express": "latest",
     "lorem-ipsum": "latest",
-    "nedb": "latest"
+    "nedb": "latest",
+    "socket.io": "latest"
   }
 }

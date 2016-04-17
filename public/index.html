@@ -43,13 +43,37 @@
 </div>
 
 <script src="/js/jquery.min.js"></script>
+<script src="/js/socket.io.js"></script>
 <script src="/js/jquery.timepicker.min.js"></script>
 <script>
     jQuery(document).ready(function ($) {
+        var socket = io();
+        socket.on('add_todo', function (id) {
+            var url_ajax = url_get_todo + id;
+            console.log(id);
+
+            $.ajax({
+                url: url_ajax,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var t = data;
+
+                    var str = t.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    var html = '<div id="' + t._id + '" class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0 todo">'
+                            + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
+                            + '<p>' + str + '</p>'
+                            + '</div>';
+
+                    $todo_lists.prepend(html);
+                }
+            });
+        });
 
         var url_get_all = location.href + 'all';
         var url_delete = location.href + 'delete/';
         var url_insert = location.href + 'insert';
+        var url_get_todo = location.href + 'todo/';
         var $todo_lists = $('.td-lists');
         $.ajax({
             url: url_get_all,
@@ -74,7 +98,6 @@
             var id = $(this).data('id');
             var url_ajax = url_delete + id;
 
-            console.log('aaaa');
             $.ajax({
                 url: url_ajax,
                 method: 'GET',
@@ -103,13 +126,7 @@
                         $('[name="content"]').val('');
 
                         var t = data.response;
-                        var str = t.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
-                        var html = '<div id="' + t._id + '" class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0 todo">'
-                                + '<h3>' + t.title + '<sub class="close pull-right td-delete" data-id="' + t._id + '">&times;</sub></h3>'
-                                + '<p>' + str + '</p>'
-                                + '</div>';
-
-                        $todo_lists.prepend(html);
+                        socket.emit('add_todo', t._id);
                     } else {
                         alert('Something went wrong ~_~!');
                     }
@@ -117,6 +134,7 @@
             });
 
         });
+
     });
 </script>
 </body>

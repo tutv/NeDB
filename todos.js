@@ -3,6 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var Datastore = require('nedb');
 var todosDB = new Datastore({filename: 'databases/todos.db', autoload: true});
+var io = require('socket.io')(http);
 
 /**
  * @type {Parsers}
@@ -47,6 +48,14 @@ app.post('/insert', function (req, res) {
     });
 });
 
+app.get('/todo/:id', function (req, res) {
+    var id = req.params.id;
+
+    todosDB.findOne({_id: id}, function (err, todo) {
+        res.json(todo);
+    });
+});
+
 app.get('/delete/:id', function (req, res) {
     var id = req.params.id;
 
@@ -69,6 +78,17 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
+});
+
+io.on('connection', function (socket) {
+    console.log('a user connected');
+    socket.on('disconnect', function () {
+        console.log('user disconnected');
+    });
+
+    socket.on('add_todo', function (id) {
+        io.emit('add_todo', id);
+    });
 });
 
 /**
