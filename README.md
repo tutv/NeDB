@@ -1,5 +1,5 @@
 # NeDB
-Kiểm tra hiệu năng giữa NeDB và MySQl
+Kiểm tra hiệu năng giữa NeDB và MySQL
 
 1. Cách cài đặt
 
