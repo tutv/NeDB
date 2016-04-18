@@ -1,5 +1,5 @@
 # NeDB
-This repo to compare the speed of NeDB vs MySQL
+Kiểm tra hiệu năng giữa NeDB và MySQl
 
 1. Cách cài đặt
 
