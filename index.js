@@ -239,6 +239,17 @@ app.get('/authorPosts/:id', function (req, res) {
     })
 });
 
+app.get('/update', function (req, res) {
+    var catUpdate = {
+        "name": "Ruby",
+        "_id": "kEig33Tn5hLxirpC"
+    };
+
+    db.posts.update({'categories.name': 'Java'}, {$set: {categories: catUpdate}}, {multi: true}, function (err, numReplaced) {
+        res.json(numReplaced);
+    });
+});
+
 /**
  * Count posts
  */
