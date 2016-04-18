@@ -245,8 +245,43 @@ app.get('/update', function (req, res) {
         "_id": "kEig33Tn5hLxirpC"
     };
 
+    var startTime = datek.getNowTimestamp();
+
     db.posts.update({'categories.name': 'Java'}, {$set: {categories: catUpdate}}, {multi: true}, function (err, numReplaced) {
-        res.json(numReplaced);
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = numReplaced;
+
+        res.json(response);
+    });
+});
+
+app.get('/delete', function (req, res) {
+    var startTime = datek.getNowTimestamp();
+    db.posts.remove({'categories.name': 'Python'}, {multi: true}, function (err, numDeleted) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = numDeleted;
+
+        res.json(response);
+    });
+});
+
+app.get('/delete/:id', function (req, res) {
+    var id = req.params.id;
+    var startTime = datek.getNowTimestamp();
+    db.posts.remove({_id: id}, {}, function (err, numDeleted) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = numDeleted;
+
+        res.json(response);
     });
 });
 
