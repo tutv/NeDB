@@ -86,12 +86,33 @@ io.on('connection', function (socket) {
         console.log('user disconnected');
     });
 
-    socket.on('add_todo', function (id) {
-        io.emit('add_todo', id);
+    /**
+     * Listen insert To-Do
+     */
+    socket.on('insert_todo', function (todo) {
+        var t = Todo(todo.title, todo.content);
+
+        todosDB.insert(t, function (err, newTodo) {
+            if (err) {
+            } else {
+                socket.emit('new_todo', newTodo);
+            }
+        });
+    });
+    
+    socket.on('get_all', function(a) {
+        
     });
 
     socket.on('delete_todo', function (id) {
-        io.emit('delete_todo', id);
+        todosDB.remove({_id: id}, {}, function (err, numRemoved) {
+            if (numRemoved > 0) {
+                io.emit('delete_todo', -1);
+            } else {
+                io.emit('delete_todo', id);
+            }
+        });
+
     });
 });
 
