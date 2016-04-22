@@ -105,6 +105,12 @@ io.on('connection', function (socket) {
         });
     });
 
+    socket.on('login', function(name) {
+        todosDB.find({}, function (err, todos) {
+            io.emit('first_login', todos);
+        });
+    });
+
     socket.on('delete_todo_', function (id) {
         console.log("Delete: " + id);
 
