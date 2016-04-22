@@ -82,7 +82,10 @@ app.get('/', function (req, res) {
 
 io.on('connection', function (socket) {
     console.log('a user connected');
-    console.log(socket);
+
+    todosDB.find({}, function (err, todos) {
+        io.emit('first_login', todos);
+    });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
@@ -102,12 +105,6 @@ io.on('connection', function (socket) {
             } else {
                 io.emit('new_todo', newTodo);
             }
-        });
-    });
-
-    socket.on('login', function(name) {
-        todosDB.find({}, function (err, todos) {
-            io.emit('first_login', todos);
         });
     });
 
