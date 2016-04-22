@@ -103,12 +103,12 @@ io.on('connection', function (socket) {
 
     socket.on('delete_todo', function (id) {
         console.log("Delete: " + id);
-
+        
         todosDB.remove({_id: id}, {}, function (err, numRemoved) {
             if (numRemoved > 0) {
-                io.emit('delete_todo_', -1);
+                io.emit('delete_todo', -1);
             } else {
-                io.emit('delete_todo_', id);
+                io.emit('delete_todo', id);
             }
         });
 
