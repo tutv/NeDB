@@ -105,7 +105,7 @@ io.on('connection', function (socket) {
         console.log("Delete: " + id);
         
         todosDB.remove({_id: id}, {}, function (err, numRemoved) {
-            if (numRemoved > 0) {
+            if (numRemoved == 0) {
                 io.emit('delete_todo', -1);
             } else {
                 io.emit('delete_todo', id);
