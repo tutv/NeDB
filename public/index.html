@@ -67,7 +67,7 @@
         /**
          * Listen delete To-Do
          */
-        socket.on('delete_todo', function (id) {
+        socket.on('delete_todo_', function (id) {
             $('#' + id).remove();
         });
 
@@ -98,7 +98,7 @@
         $('body').on('click', '.td-delete', function (e) {
             var id = $(this).data('id');
 
-            socket.emit('delete_todo', id);
+            socket.emit('delete_todo_', id);
         });
 
         /**

@@ -101,7 +101,7 @@ io.on('connection', function (socket) {
         });
     });
 
-    socket.on('delete_todo', function (id) {
+    socket.on('delete_todo_', function (id) {
         console.log("Delete: " + id);
         
         todosDB.remove({_id: id}, {}, function (err, numRemoved) {
