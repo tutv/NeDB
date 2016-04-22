@@ -105,7 +105,7 @@ io.on('connection', function (socket) {
         console.log("Delete: " + id);
 
         io.emit('delete_todo', id);
-        
+
         // todosDB.remove({_id: id}, {}, function (err, numRemoved) {
         //     if (numRemoved == 0) {
         //         io.emit('delete_todo', -1);
@@ -120,6 +120,6 @@ io.on('connection', function (socket) {
 /**
  * Server Listen
  */
-http.listen(6789, function () {
-    console.log('listening on localhost:6789');
+http.listen(5678, function () {
+    console.log('listening on localhost:5678');
 });
