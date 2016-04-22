@@ -95,17 +95,17 @@ io.on('connection', function (socket) {
      * Listen insert To-Do
      */
     socket.on('insert_todo', function (todo) {
-        console.log(todo);
+        if (todo.title && todo.content) {
+            var t = Todo(todo.title, todo.content);
+            console.log("Add new: " + t.title);
 
-        var t = Todo(todo.title, todo.content);
-        console.log("Add new: " + t.title);
-
-        todosDB.insert(t, function (err, newTodo) {
-            if (err) {
-            } else {
-                io.emit('new_todo', newTodo);
-            }
-        });
+            todosDB.insert(t, function (err, newTodo) {
+                if (err) {
+                } else {
+                    io.emit('new_todo', newTodo);
+                }
+            });
+        }
     });
 
     socket.on('delete_todo_', function (id) {
