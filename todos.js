@@ -91,17 +91,14 @@ io.on('connection', function (socket) {
      */
     socket.on('insert_todo', function (todo) {
         var t = Todo(todo.title, todo.content);
+        console.log("Add new: " + t.title);
 
         todosDB.insert(t, function (err, newTodo) {
             if (err) {
             } else {
-                socket.emit('new_todo', newTodo);
+                io.emit('new_todo', newTodo);
             }
         });
-    });
-    
-    socket.on('get_all', function(a) {
-        
     });
 
     socket.on('delete_todo', function (id) {
