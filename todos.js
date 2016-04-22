@@ -90,6 +90,8 @@ io.on('connection', function (socket) {
      * Listen insert To-Do
      */
     socket.on('insert_todo', function (todo) {
+        console.log(todo);
+
         var t = Todo(todo.title, todo.content);
         console.log("Add new: " + t.title);
 
