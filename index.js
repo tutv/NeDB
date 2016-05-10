@@ -302,6 +302,38 @@ app.get('/countPosts', function (req, res) {
     });
 });
 
+app.get('/api/1', function(req, res) {
+    var startTime = datek.getNowTimestamp();
+
+    db.posts.count({}, function (err, count) {
+        var stopTime = datek.getNowTimestamp();
+        var sumTime = stopTime - startTime;
+        var response = new Response(true, sumTime, count, 'Success!');
+
+        res.json(response);
+    });
+});
+
+app.get('/api/2', function(req, res) {
+
+});
+
+app.get('/api/3', function(req, res) {
+
+});
+
+app.get('/api/4', function(req, res) {
+
+});
+
+app.get('/api/5', function(req, res) {
+
+});
+
+app.get('/api/6', function(req, res) {
+
+});
+
 /**
  * Server Listen
  */
