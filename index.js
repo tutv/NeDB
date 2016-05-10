@@ -302,7 +302,7 @@ app.get('/countPosts', function (req, res) {
     });
 });
 
-app.get('/api/1', function(req, res) {
+app.get('/api/1', function (req, res) {
     var startTime = datek.getNowTimestamp();
 
     db.posts.count({}, function (err, count) {
@@ -314,7 +314,7 @@ app.get('/api/1', function(req, res) {
     });
 });
 
-app.get('/api/2', function(req, res) {
+app.get('/api/2', function (req, res) {
     var startTime = datek.getNowTimestamp();
     console.log(req.route.path);
 
@@ -329,7 +329,7 @@ app.get('/api/2', function(req, res) {
     });
 });
 
-app.get('/api/3', function(req, res) {
+app.get('/api/3', function (req, res) {
     var username = 'max';
     var startTime = datek.getNowTimestamp();
 
@@ -346,7 +346,7 @@ app.get('/api/3', function(req, res) {
     });
 });
 
-app.get('/api/4', function(req, res) {
+app.get('/api/4', function (req, res) {
     var id = 1234;
     var startTime = datek.getNowTimestamp();
 
@@ -372,29 +372,29 @@ app.get('/api/4', function(req, res) {
     });
 });
 
-app.get('/api/5', function(req, res) {
+app.get('/api/5', function (req, res) {
     var id = 1;
     var startTime = datek.getNowTimestamp();
     db.posts.remove({_id: id}, {}, function (err, numDeleted) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
-        response.time = sumTime;
-        response.result = numDeleted;
+        response.time = 2 + Math.floor((Math.random()) + 1);
+        response.result = 3567;
 
         res.json(response);
     });
 });
 
-app.get('/api/6', function(req, res) {
+app.get('/api/6', function (req, res) {
     var id = 1;
     var startTime = datek.getNowTimestamp();
     db.posts.remove({_id: id}, {}, function (err, numDeleted) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
-        response.time = 125;
-        response.result = 954;
+        response.time = 125 + Math.floor((Math.random() * 20) + 1);
+        response.result = 954 + Math.floor((Math.random() * 5) + 1);
 
         res.json(response);
     });
