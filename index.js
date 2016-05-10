@@ -394,7 +394,7 @@ app.get('/api/6', function (req, res) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
-        response.time = 125 + Math.floor((Math.random() * 20) + 1);
+        response.time = sumTime;
         response.result = 954 + Math.floor((Math.random() * 5) + 1);
 
         res.json(response);
