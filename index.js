@@ -330,7 +330,20 @@ app.get('/api/2', function(req, res) {
 });
 
 app.get('/api/3', function(req, res) {
+    var username = 'max';
+    var startTime = datek.getNowTimestamp();
 
+    db.posts.find({
+        'author.username': username
+    }).limit(10).exec(function (err, posts) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = posts;
+
+        res.json(response);
+    });
 });
 
 app.get('/api/4', function(req, res) {
