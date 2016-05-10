@@ -309,6 +309,7 @@ app.get('/api/1', function (req, res) {
         var stopTime = datek.getNowTimestamp();
         var sumTime = stopTime - startTime;
         var response = new Response(true, sumTime, count, 'Success!');
+        response.number = 1;
 
         res.set({
             'Access-Control-Allow-Origin': '*'
@@ -327,6 +328,7 @@ app.get('/api/2', function (req, res) {
         sumTime = doneTime - startTime;
         response.time = sumTime;
         response.result = posts;
+        response.number = 2;
 
         res.set({
             'Access-Control-Allow-Origin': '*'
@@ -347,6 +349,7 @@ app.get('/api/3', function (req, res) {
         sumTime = doneTime - startTime;
         response.time = sumTime;
         response.result = posts;
+        response.number = 3;
 
         res.set({
             'Access-Control-Allow-Origin': '*'
@@ -376,6 +379,7 @@ app.get('/api/4', function (req, res) {
         } else {
             response = new Response(true, sumTime, posts[0], 'Success!');
         }
+        response.number = 4;
 
         res.set({
             'Access-Control-Allow-Origin': '*'
@@ -394,6 +398,7 @@ app.get('/api/5', function (req, res) {
         response.time = 2 + Math.floor((Math.random()* 2));
         response.result = 3567 + Math.floor((Math.random() * 500) + 1);
 
+        response.number = 5;
         res.set({
             'Access-Control-Allow-Origin': '*'
         });
@@ -412,6 +417,7 @@ app.get('/api/6', function (req, res) {
         response.time = sumTime;
         response.result = 954 + Math.floor((Math.random() * 5) + 1);
 
+        response.number = 6;
         res.set({
             'Access-Control-Allow-Origin': '*'
         });
