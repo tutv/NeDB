@@ -311,7 +311,7 @@ app.get('/api/1', function (req, res) {
         var response = new Response(true, sumTime, count, 'Success!');
 
         res.set({
-            'Accept': '*'
+            'Access-Control-Allow-Origin': '*'
         });
         res.json(response);
     });
