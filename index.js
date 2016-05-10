@@ -347,7 +347,7 @@ app.get('/api/3', function (req, res) {
 });
 
 app.get('/api/4', function (req, res) {
-    var id = 'sH8i8b1CP2SEOTUw';
+    var id = '0011ER7AcY5caKIS';
     var startTime = datek.getNowTimestamp();
 
     db.posts.find({_id: id}, function (err, posts) {
