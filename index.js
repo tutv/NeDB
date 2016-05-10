@@ -315,7 +315,18 @@ app.get('/api/1', function(req, res) {
 });
 
 app.get('/api/2', function(req, res) {
+    var startTime = datek.getNowTimestamp();
+    console.log(req.route.path);
 
+    db.posts.find({}).limit(10).exec(function (err, posts) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = posts;
+
+        res.json(response);
+    });
 });
 
 app.get('/api/3', function(req, res) {
@@ -337,6 +348,6 @@ app.get('/api/6', function(req, res) {
 /**
  * Server Listen
  */
-http.listen(2356, function () {
-    console.log('listening on localhost:2356');
+http.listen(2357, function () {
+    console.log('listening on localhost:2357');
 });
