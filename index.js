@@ -373,7 +373,17 @@ app.get('/api/4', function(req, res) {
 });
 
 app.get('/api/5', function(req, res) {
+    var id = 1;
+    var startTime = datek.getNowTimestamp();
+    db.posts.remove({_id: id}, {}, function (err, numDeleted) {
+        var doneTime = datek.getNowTimestamp();
+        var sumTime;
+        sumTime = doneTime - startTime;
+        response.time = sumTime;
+        response.result = numDeleted;
 
+        res.json(response);
+    });
 });
 
 app.get('/api/6', function(req, res) {
