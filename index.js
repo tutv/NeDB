@@ -175,7 +175,7 @@ app.get('/post/:id', function (req, res) {
         }
 
         res.json(response);
-    })
+    });
 });
 
 app.get('/authors', function (req, res) {
@@ -347,7 +347,29 @@ app.get('/api/3', function(req, res) {
 });
 
 app.get('/api/4', function(req, res) {
+    var id = 1234;
+    var startTime = datek.getNowTimestamp();
 
+    db.posts.find({_id: id}, function (err, posts) {
+        var stopTime = datek.getNowTimestamp();
+        var sumTime = stopTime - startTime;
+        var response;
+
+        if (err) {
+            response = new Response(false, sumTime, null, 'Error!');
+            res.json(response);
+
+            throw err;
+        }
+
+        if (posts.length == 0) {
+            response = new Response(false, sumTime, null, 'Post not found!');
+        } else {
+            response = new Response(true, sumTime, posts[0], 'Success!');
+        }
+
+        res.json(response);
+    });
 });
 
 app.get('/api/5', function(req, res) {
