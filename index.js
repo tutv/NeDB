@@ -387,9 +387,10 @@ app.get('/api/5', function (req, res) {
 });
 
 app.get('/api/6', function (req, res) {
-    var id = 1;
+    var id = 'dot sdf sdf Net';
     var startTime = datek.getNowTimestamp();
-    db.posts.remove({_id: id}, {}, function (err, numDeleted) {
+
+    db.posts.remove({'categories.name': id}, {}, function (err, numDeleted) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
