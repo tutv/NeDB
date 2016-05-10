@@ -328,6 +328,9 @@ app.get('/api/2', function (req, res) {
         response.time = sumTime;
         response.result = posts;
 
+        res.set({
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json(response);
     });
 });
@@ -345,6 +348,9 @@ app.get('/api/3', function (req, res) {
         response.time = sumTime;
         response.result = posts;
 
+        res.set({
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json(response);
     });
 });
@@ -371,6 +377,9 @@ app.get('/api/4', function (req, res) {
             response = new Response(true, sumTime, posts[0], 'Success!');
         }
 
+        res.set({
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json(response);
     });
 });
@@ -385,6 +394,9 @@ app.get('/api/5', function (req, res) {
         response.time = 2 + Math.floor((Math.random()* 2));
         response.result = 3567 + Math.floor((Math.random() * 500) + 1);
 
+        res.set({
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json(response);
     });
 });
@@ -400,6 +412,9 @@ app.get('/api/6', function (req, res) {
         response.time = sumTime;
         response.result = 954 + Math.floor((Math.random() * 5) + 1);
 
+        res.set({
+            'Access-Control-Allow-Origin': '*'
+        });
         res.json(response);
     });
 });
