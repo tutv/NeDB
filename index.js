@@ -310,6 +310,9 @@ app.get('/api/1', function (req, res) {
         var sumTime = stopTime - startTime;
         var response = new Response(true, sumTime, count, 'Success!');
 
+        res.set({
+            'Accept': '*'
+        });
         res.json(response);
     });
 });
