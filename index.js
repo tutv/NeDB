@@ -407,14 +407,14 @@ app.get('/api/5', function (req, res) {
 });
 
 app.get('/api/6', function (req, res) {
-    var id = 'dot sdf sdf Net';
+    var id = 'Python';
     var startTime = datek.getNowTimestamp();
 
     db.posts.remove({'categories.name': id}, {}, function (err, numDeleted) {
         var doneTime = datek.getNowTimestamp();
         var sumTime;
         sumTime = doneTime - startTime;
-        response.time = 200 + Math.floor((Math.random() * 10) + 1);
+        response.time = sumTime;
         response.result = 954 + Math.floor((Math.random() * 5) + 1);
 
         response.number = 6;
